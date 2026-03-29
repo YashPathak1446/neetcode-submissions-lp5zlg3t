@@ -1,0 +1,15 @@
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        l = 0
+        result = 0
+        hashmap = dict()
+
+        for r in range(len(s)):
+            hashmap[s[r]] = 1 + hashmap.get(s[r], 0)
+
+            if (r-l+1) - max(hashmap.values()) > k:
+                hashmap[s[l]] -= 1
+                l += 1
+
+            result = max(result, r-l+1)
+        return result
